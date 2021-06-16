@@ -4,7 +4,7 @@ import pandas as pd
 from glob import glob
 import collections
 
-paths = glob(".\data_price/*.csv")
+paths = glob("./raw_adata_price/*.csv")
 
 data = {}
 dates = set()
@@ -37,4 +37,4 @@ for i,(k,v) in enumerate(data.items()):
         l[j] = x[1].replace(',','.')
     prices.append([k]+l)
 
-pd.DataFrame(prices).to_csv("prices.csv",sep=";",header = ["Produit"] + dates) 
+pd.DataFrame(prices).to_csv("./price_computed/prices.csv",sep=";",header = ["Produit"] + dates) 

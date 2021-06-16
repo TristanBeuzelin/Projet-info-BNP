@@ -28,5 +28,5 @@ average_price = []
 for k in average_price_dict.keys():
     average_price.append([k] + list(average_price_dict[k][1]))
 
-pd.DataFrame(average_price).to_csv("average_prices.csv",sep=";",header = header[1:])
+pd.DataFrame(average_price).to_csv("./price_computed/average_prices.csv",sep=";",header = header[1:])
 

@@ -35,4 +35,4 @@ for i in range(n_rows):
         
 data_p[:,1:] = data_new
 
-pd.DataFrame(data_p).to_csv("price_filled2.csv",sep=";",header = data.columns)
+pd.DataFrame(data_p).to_csv("./price_computed/price_filled2.csv",sep=";",header = data.columns)
