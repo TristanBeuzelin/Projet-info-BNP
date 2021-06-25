@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
 import matplotlib.pyplot as plt 
 
-df_price = pd.read_csv("./price_computed/average_prices.csv",sep = ";") 
+df_price = pd.read_csv("../../price_computed/average_prices.csv",sep = ";") 
 header = df_price.columns
 np_price = df_price.to_numpy()
 
