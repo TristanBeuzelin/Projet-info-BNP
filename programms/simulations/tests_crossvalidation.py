@@ -5,6 +5,8 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.neural_network import MLPRegressor
 from sklearn.neighbors import KNeighborsRegressor
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt 
 
 df_price = pd.read_csv("../../price_computed/average_prices.csv",sep = ";") 
@@ -101,7 +103,7 @@ Predict = grid.best_estimator_.predict(prices.T)
 Predict2 = Predict.copy()
 Predict2[-len(Predict_test):] = Predict_test
 """
-
+"""
 # Gradient Boosting Regression
 Model = GradientBoostingRegressor(learning_rate=0.65, n_estimators=15, max_depth=4, alpha=0.6, tol=0.07)
 n_list = np.arange(0.1, 1, 0.1)
@@ -112,6 +114,18 @@ grid.fit(prices_learn, IPC_learn.ravel())
 print(grid.best_estimator_)
 Predict_test = grid.best_estimator_.predict(price_test.T)
 Predict = grid.best_estimator_.predict(prices.T)
+Predict2 = Predict.copy()
+Predict2[-len(Predict_test):] = Predict_test
+"""
+
+# Polynomial regression
+poly_features = PolynomialFeatures(degree=6)
+poly_features.fit(prices_learn)
+poly_features.transform(prices_learn)
+Model = LinearRegression()
+Model.fit(prices_learn, IPC_learn.ravel())
+Predict_test = Model.predict(price_test.T)
+Predict = Model.predict(prices.T)
 Predict2 = Predict.copy()
 Predict2[-len(Predict_test):] = Predict_test
 
@@ -126,7 +140,7 @@ for j,price in enumerate(prices.T): #Filling of Y_real
     if date in IPC_dict.keys():
         Y_real.append(IPC_dict[date])
     
-
+ 
 plt.plot(np.arange(len(Y_real)),Y_real, label = "Real IPC")
 plt.plot(np.arange(len(Predict)),Predict, label ="Prediction IPC")
 plt.plot(np.arange(len(Predict2)),Predict2, label ="Second Prediction IPC")
